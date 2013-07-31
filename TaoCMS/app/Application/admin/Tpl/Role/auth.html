@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>授权</title>
+<include file="Public:top" />
+</head>
+<body >
+<form action="__URL__/addauth" method="post" class="form-horizontal">
+<div >
+<foreach name="list" item="app">
+<input type="checkbox" name="auth[]" value="{$app[id]}_{$app[level]}" <if condition="in_array($app['id'],$authList)">checked="checked"</if>>&nbsp;&nbsp;{$app.title}[{$app.name}]<br>
+<foreach name="app[children]" item="m">
+&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="auth[]"  value="{$m[id]}_{$m[level]}" <if condition="in_array($m['id'],$authList)">checked="checked"</if>>&nbsp;&nbsp;{$m.title}[{$m.name}]<br>
+<foreach name="m[children]" item="vo">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="auth[]"  value="{$vo[id]}_{$vo[level]}" <if condition="in_array($vo['id'],$authList)">checked="checked"</if>>&nbsp;&nbsp;{$vo.title}[{$vo.name}]<br>
+<foreach name="vo[children]" item="v"  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="auth[]" value="{$v[id]}_{$v[level]}" <if condition="in_array($v['id'],$authList)">checked="checked"</if>>&nbsp;&nbsp;{$v.title}[{$v.name}]&nbsp;
+ <if condition="$key % 4 ==0"><br></if>
+ </foreach>
+</foreach>
+</foreach>
+</foreach>
+<input type="hidden" name="role_id" value="{$role_id}">
+<input type="submit" value="授权" class="l-button l-button-submit" >
+</div>
+</form>
+
+</body>
+</html>
+
+
+

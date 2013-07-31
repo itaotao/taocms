@@ -1,0 +1,1 @@
+<?php	return array ( 'BASEHOST' => 'rtytr', 'INDEXURL' => '', 'INDEXNAME' => '', 'POWERBY' => '', 'KEYWORDS' => '', 'DESCRIPTION' => '', 'BEIAN' => '', );?>

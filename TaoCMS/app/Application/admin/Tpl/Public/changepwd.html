@@ -1,0 +1,97 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+</title>
+<include file="Public:top" />
+    <script type="text/javascript"><!--
+        
+        $(function ()
+        {
+            $.metadata.setType("attr", "validate");
+            var v = $("#form1").validate({
+                debug: false,
+                errorPlacement: function (lable, element)
+                {
+                    if (element.hasClass("l-textarea"))
+                    {
+                        element.ligerTip({ content: lable.html(), target: element[0] }); 
+                    }
+                    else if (element.hasClass("l-text-field"))
+                    {
+                        element.parent().ligerTip({ content: lable.html(), target: element[0] });
+                    }
+                    else
+                    {
+                        lable.appendTo(element.parents("td:first").next("td"));
+                        
+                        
+                    }
+                },
+                success: function (lable)
+                {
+                    lable.ligerHideTip();
+                    lable.remove();
+                },
+                submitHandler: function ()
+                {
+
+            		$.post("{:U('updatepwd')}", { oldpassword:$("#oldpwd").val(), newpassword:$("#newpassword").val(),confirmpassword: $("#confirmpassword").val()
+                		}, function(json){
+                			var json = eval('(' + json + ')');
+                			if(json.status==0)
+                			 $.ligerDialog.alert(json.info, '错误提示', "error");
+               			else
+               			 $.ligerDialog.alert("操作成功", '成功提示', "success");
+               			//  alert(json.info);
+            			}); 
+      		                }
+                
+               
+            });
+            $("#reset").click(function() {
+                validator.resetForm();
+            });
+            $("#form1").ligerForm();
+        });  
+   </script>
+    <style type="text/css">
+           body{ font-size:12px;}
+        .l-table-edit {}
+        .l-table-edit-td{ padding:4px;}
+        .l-button-submit,.l-button-test{width:80px; float:left; margin-left:10px; padding-bottom:2px;}
+        .l-verify-tip{ left:230px; top:120px;}
+    </style>
+
+</head>
+
+<body style="padding:10px">
+
+    <form name="form1" method="post"   id="form1">
+<div>
+<img src="__PUBLIC__/ligerUI/skins/icons/communication.gif";" alt="" />   <span style="font-weight: bold;">修改密码</span>
+<hr />
+</div>
+        <table cellpadding="0" cellspacing="0" class="l-table-edit" >
+            <tr>
+                <td align="right" class="l-table-edit-td">原密码:</td>
+                <td align="left" class="l-table-edit-td"><input name="oldpwd" type="password" id="oldpwd"  validate="{required:true,minlength:5,maxlength:15}" /></td>
+                <td align="left"><span>*必填项：由5~15位的字母和数字组成，且只能以字母开头</span></td>
+            </tr>
+               <tr>
+                <td align="right" class="l-table-edit-td">密码:</td>
+                <td align="left" class="l-table-edit-td"><input type="password" id="newpassword" name="newpassword" validate="{required:true,minlength:5,maxlength:15}"></td>
+                <td align="left"><span>*必填项：由5~15位的字母和数字组成，且只能以字母开头</span></td>
+            </tr>
+              <tr>
+                <td align="right" class="l-table-edit-td">确认密码:</td>
+                <td align="left" class="l-table-edit-td"><input type="password" id="confirmpassword" name="confirmpassword" validate="{required:true,minlength:5,equalTo:'#newpassword'}"></td>
+                <td align="left"><span>*必填项：由5~16位的字母和数字组成，且只能以字母开头</span></td>
+            </tr> 
+        </table>
+ <br />
+<input type="submit" value="提交"  class="l-button l-button-submit" /> &nbsp;&nbsp;
+<input type="reset"" value="重置" id="reset" class="l-button l-button-reset"/>
+    </form>   
+</body>
+</html>
