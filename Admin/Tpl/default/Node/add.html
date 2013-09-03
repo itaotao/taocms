@@ -1,0 +1,129 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+</title>
+<include file="Public:top" />
+    <script type="text/javascript"><!--
+    var UserData= {$auth} ;
+        $(function ()
+        {  // alert($("#pid").find("option:selected").attr("level"));
+           
+            $.metadata.setType("attr", "validate");
+            var v = $("#form1").validate({
+                debug: false,
+                errorPlacement: function (lable, element)
+                {
+                    if (element.hasClass("l-textarea"))
+                    {
+                        element.ligerTip({ content: lable.html(), target: element[0] }); 
+                    }
+                    else if (element.hasClass("l-text-field"))
+                    {
+                        element.parent().ligerTip({ content: lable.html(), target: element[0] });
+                    }
+                    else
+                    {
+                        lable.appendTo(element.parents("td:first").next("td"));
+                        
+                        
+                    }
+                },
+                success: function (lable)
+                {
+                    lable.ligerHideTip();
+                    lable.remove();
+                },
+                submitHandler: function ()
+                {
+
+            		$.post("{:U('insert')}", {
+                		 name:$("#name").val(),
+                		 title:$("#title").val(),
+                		 pid: $("#pid").find("option:selected").val(),
+                		 level: parseInt($("#pid").find("option:selected").attr("level"))+1,
+                         status:$('input:radio:checked').val(),
+                         sort:$("#sort").val()}, function(json){
+                			var json = eval('(' + json + ')');
+                			if(json.status==0)
+                			 $.ligerDialog.alert(json.info, '错误提示', "error");
+               			else
+               			 $.ligerDialog.alert("操作成功", '成功提示', "success");
+               			//  alert(json.info);
+            			}); 
+      		                }
+                
+               
+            });
+            $("#reset").click(function() {
+                validator.resetForm();
+            });
+            $("#form1").ligerForm();
+        });  
+   </script>
+    <style type="text/css">
+           body{ font-size:12px;}
+        .l-table-edit {}
+        .l-table-edit-td{ padding:4px;}
+        .l-button-submit,.l-button-test{width:80px; float:left; margin-left:10px; padding-bottom:2px;}
+        .l-verify-tip{ left:230px; top:120px;}
+    </style>
+
+</head>
+
+<body style="padding:10px">
+
+    <form name="form1" method="post"   id="form1">
+<div>
+<img src="__PUBLIC__/ligerUI/skins/icons/communication.gif";" alt="" />   <span style="font-weight: bold;">添加节点</span>
+<hr />
+</div>
+        <table cellpadding="0" cellspacing="0" class="l-table-edit" >
+            <tr>
+                <td align="right" class="l-table-edit-td">节点名称:</td>
+                <td align="left" class="l-table-edit-td"><input name="name" type="text" id="name" ltype="text" validate="{required:true}" /></td>
+                <td align="left"><span>*必填项：控制器名称</span></td>
+            </tr>
+            <tr>
+                <td align="right" class="l-table-edit-td">显示名称:</td>
+                <td align="left" class="l-table-edit-td"><input name="title" type="text" id="title"  validate="{required:true}" /></td>
+                <td align="left"><span>*必填项：中文名称</span></td>
+            </tr>
+             <tr>
+                <td align="right" class="l-table-edit-td">上级节点：</td>
+                <td align="left" class="l-table-edit-td">
+                     <select id="pid" name="pid">
+   <option value="1" level="0">┌后台管理</option>
+<volist name="auth" id="vo">
+<volist name="vo[children]" id="vo" >
+<option value="{$vo.id}" level={$vo.level}>│&nbsp;&nbsp;┌-{$vo.title}</option>
+<volist name="vo[children]" id="vo" >
+<option value="{$vo.id}" level={$vo.level}>│&nbsp;&nbsp;│-{$vo.title}</option>
+</volist>
+</volist>
+</volist>
+</select>
+                </td>
+                <td align="left"><span></span></td>
+            </tr>
+             <tr>
+                <td align="right" class="l-table-edit-td" valign="top">是否激活:</td>
+                <td align="left" class="l-table-edit-td">
+                    <input id="rbtnl_0" type="radio" name="status" value="1" checked="checked" /><label for="rbtnl_0">是</label> <input id="rbtnl_1" type="radio" name="status" value="0" /><label for="rbtnl_1">否</label>
+                </td><td align="left"></td>
+            </tr> 
+                        <tr>
+                <td align="right" class="l-table-edit-td">排序:</td>
+                <td align="left" class="l-table-edit-td"><input name="sort" type="text" id="sort" ltype="text" /></td>
+                <td align="left"><span></span></td>
+            </tr>
+        </table>
+ <br />
+<input type="submit" value="提交"  class="l-button l-button-submit" /> &nbsp;&nbsp;
+<input type="reset"" value="重置" id="reset" class="l-button l-button-reset"/>
+    </form>
+   
+
+    
+</body>
+</html>

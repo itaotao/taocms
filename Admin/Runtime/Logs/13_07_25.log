@@ -1,0 +1,18 @@
+[ 2013-07-25T00:25:35+08:00 ] 127.0.0.1 /taotao/admin.php/Role/getData.html
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000813s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000910s ]
+SQL: SHOW COLUMNS FROM `tao_role` [ RunTime:0.003137s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\taotao\Admin\Common\common.php 第 38 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `tao_role` LIMIT 1   [ RunTime:0.000179s ]
+SQL: SELECT * FROM `tao_role` LIMIT 0,15   [ RunTime:0.000230s ]
+
+[ 2013-07-25T00:25:35+08:00 ] 127.0.0.1 /taotao/admin.php/User/getData.html
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000567s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000625s ]
+SQL: SHOW COLUMNS FROM `tao_user` [ RunTime:0.004322s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\taotao\Admin\Common\common.php 第 38 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `tao_user` LIMIT 1   [ RunTime:0.000245s ]
+SQL: SELECT `id`,`username`,`nickname`,`bind_account`,`last_login_time`,`last_login_ip`,`login_count`,`verify`,`email`,`remark`,`create_time`,`update_time`,`status`,`type_id`,`info` FROM `tao_user` LIMIT 0,15   [ RunTime:0.000307s ]
+

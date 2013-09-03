@@ -1,0 +1,1 @@
+<?php	return array ( 'BASEHOST' => 'http://localhost/taotao/', 'INDEXURL' => 'index.php', 'INDEXNAME' => '', 'POWERBY' => '', 'KEYWORDS' => '', 'DESCRIPTION' => '', 'BEIAN' => '', );?>

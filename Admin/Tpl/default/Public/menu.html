@@ -1,0 +1,25 @@
+	<include file="Public:top" />
+	    <script type="text/javascript">
+        $(function ()
+        {
+            $("#tree1").ligerTree({ checkbox: false });
+        });
+    </script>
+	
+	<ul id="tree1">
+
+<volist name="menu" id="vo">
+<li>
+<span>{$vo.title}</span>
+<ul>
+<volist name="vo[children]" id="vo" >
+            
+                <li>
+                    <span>{$vo.title}</span>
+</li>
+
+</volist>
+</ul>
+</li>
+</volist>
+</ul>
